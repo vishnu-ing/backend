@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 });
 
 // MongoDB Connection - with better error handling
+//Mongo DB is not setup yet, waiting for meeting to discuss best way to implement, this is just initial setup
 const connectDB = async () => {
   try {
     if (
@@ -29,17 +30,17 @@ const connectDB = async () => {
       process.env.MONGODB_URI.includes("localhost")
     ) {
       console.log(
-        "⚠️  Using default/local MongoDB URI - make sure MongoDB is running"
+        "Using default/local MongoDB URI - make sure MongoDB is running"
       );
     }
 
     await mongoose.connect(
       process.env.MONGODB_URI || "mongodb://localhost:27017/employee-portal"
     );
-    console.log("✅ MongoDB connected successfully");
+    console.log("MongoDB connected successfully");
   } catch (err) {
-    console.error("❌ MongoDB connection error:", err.message);
-    console.log("⚠️  Server starting without database connection");
+    console.error("MongoDB connection error:", err.message);
+    console.log("Server starting without database connection");
   }
 };
 
@@ -86,9 +87,9 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-  console.log(`📁 Environment: ${process.env.NODE_ENV || "development"}`);
+  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
   console.log(
-    `📦 Dependencies: Express, Mongoose, CORS, JWT, bcrypt, AWS SDK installed`
+    `Dependencies: Express, Mongoose, CORS, JWT, bcrypt, AWS SDK installed`
   );
 });
