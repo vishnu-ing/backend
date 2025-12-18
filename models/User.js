@@ -27,14 +27,13 @@ const UserSchema = new mongoose.Schema({
     //contact info
     cellPhone: {type: String, required: true},
     workPhone: {type: String, default: ""},
-    
-    address: [{
+    address: {
         buildingApt:{type: String},
         street: { type: String, required: true },
         city: { type: String, required: true },
         state: { type: String, required: true },
         zip: { type: String, required: true }
-    }],
+    },
 
     
     VisaDocument: [{
@@ -67,7 +66,7 @@ const UserSchema = new mongoose.Schema({
         email: {type: String},
         relationship: {type: String}
     }],
-
+    
 });
 
 module.exports = mongoose.model('User', UserSchema);
