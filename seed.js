@@ -104,5 +104,4 @@ const seedDatabase = async()=>{
         console.log("error seeding the database : " + error);
     }
 }
-
 seedDatabase();
