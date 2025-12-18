@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     userName: {type: String, required: true, unique: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    role: {type: String, default: employee, enum:['HR','Employee']},
+    role: {type: String, default: "Employee", enum:['HR','Employee']},
 
     onboardingStatus: { 
         type: String, 
@@ -27,13 +27,14 @@ const UserSchema = new mongoose.Schema({
     //contact info
     cellPhone: {type: String, required: true},
     workPhone: {type: String, default: ""},
-    address: {
+    
+    address: [{
         buildingApt:{type: String},
         street: { type: String, required: true },
         city: { type: String, required: true },
         state: { type: String, required: true },
         zip: { type: String, required: true }
-    },
+    }],
 
     
     VisaDocument: [{
@@ -50,13 +51,14 @@ const UserSchema = new mongoose.Schema({
 
     //referral and Emergency contact
     reference:{
-        firstname: {type: String, required: true},
-        lastname: {type: String, required: true},
-        phone: {type: String, required: true},
-        email: {type: String, required: true},
-        relationship: {type: String, required: true},
+        firstname: {type: String},
+        lastname: {type: String},
+        phone: {type: String},
+        email: {type: String},
+        relationship: {type: String},
         middlename: {type: String, default:""}
     },
+
     emergencyContacts: [{
         firstName: {type: String},
         lastName: {type: String},
@@ -65,6 +67,7 @@ const UserSchema = new mongoose.Schema({
         email: {type: String},
         relationship: {type: String}
     }],
+
 });
 
 module.exports = mongoose.model('User', UserSchema);
