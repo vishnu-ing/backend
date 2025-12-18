@@ -39,7 +39,7 @@ const createTestUser = async () => {
     });
 
     await testUser.save();
-    console.log("✅ Test user created successfully!");
+    console.log(" Test user created successfully!");
     console.log("Username: testuser");
     console.log("Password: password123");
 
