@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/vishnu-ing/backend#readme",
   "dependencies": {
-    "dotenv": "^17.2.3",
-    "express": "^5.2.1",
-    "mongoose": "^9.0.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
     "aws-sdk": "^2.1400.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
