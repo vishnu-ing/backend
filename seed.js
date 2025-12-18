@@ -8,7 +8,7 @@ dotenv.config();
 
 const seedDatabase = async()=>{
     try{
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGODB_URI);
 
         await User.deleteMany({});
         await House.deleteMany({});
