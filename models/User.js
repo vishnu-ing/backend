@@ -36,13 +36,10 @@ const UserSchema = new mongoose.Schema({
     },
 
     
-    workAuth: {
-        isCitizen: {type: String, required: true, enum:['Yes','No']},
-        kind: {
-            type: String,
-            enum: ['Green Card', 'Citizen', 'H1-B', 'L2', 'F1(CPT/OPT)', 'H4', 'Other']
-        }
-    },
+    VisaDocument: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'VisaDocument'
+    }],
 
     driverlicense: {
         hasLicense: {type: String, enum:['Yes','No'], default: 'No'},
