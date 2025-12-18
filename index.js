@@ -47,6 +47,12 @@ const connectDB = async () => {
 // Connect to database
 connectDB();
 
+// Import routes
+const authRoutes = require("./routes/authRoutes");
+
+// Mount routes
+app.use("/api/auth", authRoutes);
+
 // Basic health check route
 app.get("/", (req, res) => {
   const dbStatus =
