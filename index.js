@@ -49,9 +49,11 @@ connectDB();
 
 // Import routes
 const authRoutes = require("./routes/authRoutes");
+const onboardingRoutes = require("./routes/onboardingRoutes");
 
 // Mount routes
 app.use("/api/auth", authRoutes);
+app.use("/api/onboarding", onboardingRoutes);
 
 // Basic health check route
 app.get("/", (req, res) => {
