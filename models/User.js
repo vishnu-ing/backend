@@ -65,10 +65,10 @@ const UserSchema = new mongoose.Schema({
     },
   ],
   car:{
-        make:{type: String},
-        model:{type: String},
-        color:{type: String}
-    }
+      make:{type: String},
+      model:{type: String},
+      color:{type: String}
+  }
 });
 
 // Hash password before saving

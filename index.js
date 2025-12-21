@@ -54,6 +54,8 @@ const onboardingRoutes = require("./routes/onboardingRoutes");
 // Mount routes
 app.use("/api/auth", authRoutes);
 app.use("/api/onboarding", onboardingRoutes);
+//temp for file uploads will replace with s3 server
+app.use('/uploads', express.static('uploads'));
 
 // Basic health check route
 app.get("/", (req, res) => {
