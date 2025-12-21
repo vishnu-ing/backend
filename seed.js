@@ -73,6 +73,8 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
+      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      profilePicture: 'cat.jpeg',
     });
 
     const employee2 = await User.create({
@@ -92,6 +94,8 @@ const seedDatabase = async () => {
         zip: "07302",
       },
       workAuth: { isCitizen: "Yes", kind: "Citizen" },
+      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      profilePicture: 'cat.jpeg',
     });
 
     const frank = await User.create({
@@ -111,6 +115,8 @@ const seedDatabase = async () => {
         zip: "10001",
       },
       workAuth: { isCitizen: "No", kind: "F1(CPT/OPT)" },
+      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      profilePicture: 'cat.jpeg',
     });
 
     console.log(" Employees created with hashed passwords");
@@ -119,7 +125,7 @@ const seedDatabase = async () => {
     const visaDoc = await VisaDocument.create({
       owner: frank._id,
       type: "OPT Receipt",
-      fileUrl: "https://placeholder-aws-s3.com/opt-receipt-frank.pdf",
+      fileUrl: "workAuth.jpeg",
       status: "Pending",
       startDate: new Date("2024-01-01"),
       endDate: new Date("2025-01-01"),
