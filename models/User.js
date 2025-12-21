@@ -64,6 +64,7 @@ const UserSchema = new mongoose.Schema({
       relationship: { type: String },
     },
   ],
+  feedback:{type: String, default:''},
   car:{
       make:{type: String},
       model:{type: String},
