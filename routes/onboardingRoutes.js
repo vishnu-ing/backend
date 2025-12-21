@@ -72,14 +72,14 @@ router.patch('/submit', upload.fields([
             { userName: userName },
             { $set: { ...onboardingdata, onboardingStatus: 'Pending' } },
             { new: true }
-        );
+        ).populate('VisaDocument');
 
         res.status(200).json({ 
             onboardingStatus: updateUser.onboardingStatus, 
             formData: updateUser 
-        }).populate('VisaDocument');
+        });
     } catch (error) {
-        res.status(500).json({ message: "Update failed", error: error.message });
+        return res.status(500).json({ message: "Update failed", error: error.message });
     }
 });
 
