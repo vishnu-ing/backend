@@ -55,10 +55,12 @@ connectDB();
 
 // Import routes
 const authRoutes = require("./routes/authRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 
 // Mount routes
 app.use("/api/auth", authRoutes);
 app.use("/api/personal-info", personalInfoRoutes)
+app.use("/api/upload", uploadRoutes);
 
 // Basic health check route
 app.get("/", (req, res) => {
