@@ -2,7 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const personalInfoRoutes = require("./routes/userRoutes")
+const personalInfoRoutes = require("./routes/userRoutes");
+
+// Routes for housing, facility reports, comments, and auth
+const housingRoutes = require("./routes/housingRoutes");
+const facilityReportRoutes = require("./routes/facilityReportRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -42,7 +48,6 @@ const connectDB = async () => {
     console.log("🟢 Connected DB:", mongoose.connection.name);
     console.log("Currently running on Port:", PORT);
     // console.log("process.env.mongodburi:", process.env.MONGODB_URI)
-
   } catch (err) {
     console.error("MongoDB connection error:", err.message);
     console.log("Server starting without database connection");
@@ -51,14 +56,6 @@ const connectDB = async () => {
 
 // Connect to database
 connectDB();
-
-
-// Import routes
-const authRoutes = require("./routes/authRoutes");
-
-// Mount routes
-app.use("/api/auth", authRoutes);
-app.use("/api/personal-info", personalInfoRoutes)
 
 // Basic health check route
 app.get("/", (req, res) => {
@@ -84,6 +81,15 @@ app.get("/api/health", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+// Use routes for auth, housing, facility reports, and comments
+app.use("/api/auth", authRoutes);
+app.use("/api/housing", housingRoutes);
+app.use("/api/facility-reports", facilityReportRoutes);
+app.use("/api/comments", commentRoutes);
+
+// custom routes
+app.use("/api/personal-info", personalInfoRoutes);
 
 // 404 handler
 app.use("*", (req, res) => {
