@@ -2,7 +2,8 @@ const User = require('../models/User')
 
 exports.getPersonalInfo = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId)
+    console.log("req.user.userId: ", req.user.userId)
+    const user = await User.findById(req.user.userId)
       .select("-password -role -onboardingStatus")
       .populate({
         path: "VisaDocument",
@@ -12,7 +13,7 @@ exports.getPersonalInfo = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
+    console.log("user: ", user)
     res.json({
       name: {
         firstName: user.firstName,
@@ -70,12 +71,12 @@ exports.updatePersonalInfo = async (req, res) => {
       name,
       address,
       contactInfo,
-      driverLicense,
+      driverlicense,
       emergencyContacts
     } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.userId,
+      req.user.userId,
       {
         firstName: name.firstName,
         lastName: name.lastName,
@@ -99,10 +100,10 @@ exports.updatePersonalInfo = async (req, res) => {
         workPhone: contactInfo.workPhone,
 
         driverlicense: {
-          hasLicense: driverLicense.hasLicense,
-          expirationDate: driverLicense.expirationDate,
-          number: driverLicense.number,
-          fileUrl: driverLicense.fileUrl
+          hasLicense: driverlicense.hasLicense,
+          expirationDate: driverlicense.expirationDate,
+          number: driverlicense.number,
+          fileUrl: driverlicense.fileUrl
         },
 
         emergencyContacts
