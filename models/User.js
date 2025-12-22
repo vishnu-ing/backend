@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+require("./VisaDocument"); 
 
 const UserSchema = new mongoose.Schema({
   //authenticating and role
@@ -32,7 +33,6 @@ const UserSchema = new mongoose.Schema({
     state: { type: String, required: true },
     zip: { type: String, required: true },
   },
-
   VisaDocument: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -62,6 +62,8 @@ const UserSchema = new mongoose.Schema({
       phone: { type: String },
       email: { type: String },
       relationship: { type: String },
+
+
     },
   ],
   feedback:{type: String, default:''},
@@ -85,3 +87,4 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 module.exports = mongoose.model("User", UserSchema);
+

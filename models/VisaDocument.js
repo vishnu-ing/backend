@@ -22,11 +22,11 @@ const VisaDocumentSchema = new mongoose.Schema({
         enum: ['Pending', 'Approved', 'Rejected']
     },
     startDate: { 
-        type: Date, 
+        type: String, 
         required: true 
     },
     endDate: { 
-        type: Date, 
+        type: String, 
         required: true 
     },
     feedback: {
