@@ -149,19 +149,42 @@ const seedDatabase = async () => {
       email: "hr1@company.com",
       password: "password",
       role: "HR",
-      firstName: "Alice",
-      lastName: "HR",
-      ssn: "111-00-1111",
-      DOB: "1985-05-12",
-      cellPhone: "123-456-7890",
+      firstName: "David",
+      lastName: "Smith",
+      ssn: "222-00-1223",
+      DOB: "1882-10-10",
+      cellPhone: "421-888-7771",
       address: {
-        street: "1 Main St",
-        city: "Edison",
+        street: "10 Oak Rd",
+        city: "Jersey City",
         state: "NJ",
-        zip: "08817",
+        zip: "07302",
       },
       workAuth: { isCitizen: "Yes", kind: "Citizen" },
+      reference: {
+        firstname: "Ref",
+        lastname: "One",
+        phone: "000",
+        email: "r@r.com",
+        relationship: "Friend",
+      },
+      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      profilePicture: 'cat.jpeg',
     });
+    
+    const hr1visaDoc = await VisaDocument.create({
+      owner: hr1._id,
+      type: "OPT Receipt",
+      fileUrl: "workAuth.jpeg",
+      status: "Pending",
+      startDate: new Date("2024-01-01"),
+      endDate: new Date("2025-01-01"),
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document to Frank
+    hr1.VisaDocument.push(hr1visaDoc._id);
+    await hr1.save();
 
     const hr2 = await User.create({
       userName: "hr2",
