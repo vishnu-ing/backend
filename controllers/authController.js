@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
         role: user.role,
       },
       process.env.JWT_SECRET || "your-secret-key-change-this",
-      { expiresIn: "24h" }
+      { expiresIn: "10m" }
     );
 
     // Send response

@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema({
     hasLicense: { type: String, enum: ["Yes", "No"], default: "No" },
     expirationDate: { type: Date },
     number: { type: String },
-    photo: { type: String },
+    fileUrl: { type: String },
   },
   //referral and Emergency contact
   reference: {

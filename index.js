@@ -59,10 +59,14 @@ const onboardingRoutes = require("./routes/onboardingRoutes");
 
 // Mount routes
 app.use("/api/auth", authRoutes);
+<<<<<<< HEAD
 app.use("/api/onboarding", onboardingRoutes);
 //temp for file uploads will replace with s3 server
 app.use('/uploads', express.static('uploads'));
 
+=======
+app.use("/api/personal-info", personalInfoRoutes)
+>>>>>>> develop
 
 // Basic health check route
 app.get("/", (req, res) => {
@@ -89,16 +93,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-
-
-// custom routes
-app.use("/api/personal-info", personalInfoRoutes)
-
-
-
-
-
-
 // 404 handler
 app.use("*", (req, res) => {
   res.status(404).json({ error: "Route not found" });
@@ -112,11 +106,38 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
+// Shut down connection and free up port
+const server = app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
   console.log(
     `Dependencies: Express, Mongoose, CORS, JWT, bcrypt, AWS SDK installed`
   );
 });
+
+const shutdown = async (signal) => {
+  console.log(`\n🛑 Received ${signal}. Shutting down gracefully...`);
+
+  server.close(async () => {
+    console.log("🟢 HTTP server closed");
+
+    try {
+      if (mongoose.connection.readyState === 1) {
+        await mongoose.connection.close();
+        console.log("🟢 MongoDB connection closed");
+      }
+    } catch (err) {
+      console.error("🔴 Error closing MongoDB connection:", err);
+    } finally {
+      process.exit(0);
+    }
+  });
+
+  // Safety net
+  setTimeout(() => {
+    console.error("🔴 Force shutdown (connections did not close in time)");
+    process.exit(1);
+  }, 10000);
+};
+process.on("SIGINT", shutdown);   // Ctrl + C (terminal)
+process.on("SIGTERM", shutdown);  // kill PID / Docker / PM2
