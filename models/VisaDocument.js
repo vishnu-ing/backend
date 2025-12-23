@@ -16,6 +16,9 @@ const VisaDocumentSchema = new mongoose.Schema({
         required: true,
         default: ""
     },
+    fileKey:{
+        type: String
+    },
     status: {
         type: String,
         default: 'Pending',

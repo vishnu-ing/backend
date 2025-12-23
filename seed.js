@@ -73,7 +73,7 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
     });
 
@@ -94,7 +94,7 @@ const seedDatabase = async () => {
         zip: "07302",
       },
       workAuth: { isCitizen: "Yes", kind: "Citizen" },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
     });
 
@@ -115,7 +115,7 @@ const seedDatabase = async () => {
         zip: "10001",
       },
       workAuth: { isCitizen: "No", kind: "F1(CPT/OPT)" },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
     });
 
@@ -127,8 +127,8 @@ const seedDatabase = async () => {
       type: "OPT Receipt",
       fileUrl: "workAuth.jpeg",
       status: "Pending",
-      startDate: new Date("2024-01-01"),
-      endDate: new Date("2025-01-01"),
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
       feedback: "Awaiting HR review",
     });
 
@@ -168,22 +168,36 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
     });
-    
+
     const hr1visaDoc = await VisaDocument.create({
       owner: hr1._id,
       type: "OPT Receipt",
       fileUrl: "workAuth.jpeg",
       status: "Pending",
-      startDate: new Date("2024-01-01"),
-      endDate: new Date("2025-01-01"),
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
       feedback: "Awaiting HR review",
     });
 
     // Link visa document to Frank
     hr1.VisaDocument.push(hr1visaDoc._id);
+    await hr1.save();
+
+     const l2visaDoc = await VisaDocument.create({
+      owner: hr1._id,
+      type: "Other",
+      fileUrl: "workAuth.jpeg",
+      status: "Pending",
+      startDate:"1993-03-30",
+      endDate:"1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document to Frank
+    hr1.VisaDocument.push(l2visaDoc._id);
     await hr1.save();
 
     const hr2 = await User.create({
