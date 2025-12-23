@@ -73,7 +73,6 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-
       driverlicense: {
         fileUrl: "driverlicense.jpeg",
         hasLicense: "Yes",
@@ -81,7 +80,6 @@ const seedDatabase = async () => {
         number: "111111111",
       },
       profilePicture: "cat.jpeg",
-
     });
 
     const employee2 = await User.create({
@@ -109,7 +107,6 @@ const seedDatabase = async () => {
         number: "111111111",
       },
       profilePicture: "cat.jpeg",
-
     });
 
     const frank = await User.create({
@@ -129,7 +126,6 @@ const seedDatabase = async () => {
         zip: "10001",
       },
       workAuth: { isCitizen: "No", kind: "F1(CPT/OPT)" },
-
       driverlicense: {
         fileUrl: "driverlicense.jpeg",
         hasLicense: "Yes",
@@ -137,7 +133,6 @@ const seedDatabase = async () => {
         number: "111111111",
       },
       profilePicture: "cat.jpeg",
-
     });
 
     console.log(" Employees created with hashed passwords");
