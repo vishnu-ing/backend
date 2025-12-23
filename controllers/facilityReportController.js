@@ -19,9 +19,10 @@ exports.createFacilityReport = async (req, res) => {
 // Get users facility reports
 exports.getUsersFacilityReports = async (req, res) => {
   try {
-    const reports = await FacilityReport.find({ reportedBy: req.user.id });
+    const reports = await FacilityReport.find({});
     res.json(reports);
   } catch (error) {
+    console.error("Error fetching facility reports:", error);
     res.status(500).json({ message: error.message });
   }
 };
