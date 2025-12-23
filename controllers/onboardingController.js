@@ -38,18 +38,36 @@ exports.submitOnboarding = async (req, res) => {
 
         const user = await User.findOne({ userName: userName });
 
+        ['visaStart', 'visaEnd', 'licenseExp', 'DOB'].forEach(dateField => {
+            if (onboardingdata[dateField] === "") {
+                onboardingdata[dateField] = null; 
+            }
+        });
+
         //create visa
         if (onboardingdata.isCitizen === "No" && onboardingdata.workAuth) {
-            const newVisaDoc = await VisaDocument.create({
+            const visaPayload = {
                 owner: user._id, 
                 type: onboardingdata.workAuth === "F1" ? "OPT Receipt" : "Other",
-                fileUrl: req.files['optReceipt']?.[0]?.path || "",
                 startDate: onboardingdata.visaStart,
                 endDate: onboardingdata.visaEnd,
                 status: 'Pending'
-            });
-            onboardingdata.VisaDocument = user.VisaDocument || [];
-            onboardingdata.VisaDocument.push(newVisaDoc._id);
+            };
+            if (req.files && req.files['optReceipt']) {
+                visaPayload.fileUrl = req.files['optReceipt'][0].path;
+            }
+            //check if it exist, if it doesnt create if not override
+            if (user.VisaDocument && user.VisaDocument.length > 0) {
+                const currentDocId = user.VisaDocument[user.VisaDocument.length - 1];
+                await VisaDocument.findByIdAndUpdate(currentDocId, visaPayload);
+            } 
+            else {
+                if (!visaPayload.fileUrl) visaPayload.fileUrl = "";
+                const newVisaDoc = await VisaDocument.create(visaPayload);
+                if (!user.VisaDocument) user.VisaDocument = [];
+                user.VisaDocument.push(newVisaDoc._id);
+                onboardingdata.VisaDocument = user.VisaDocument;
+            }
         }
 
         //file handling
