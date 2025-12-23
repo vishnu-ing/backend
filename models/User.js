@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
     enum: ["Not Started", "Pending", "Approved", "Rejected"],
     default: "Not Started",
   },
-
+  isCitizen: {type: String, default:"No"},
+  greencard: {type: String, default:"No"},
   //personal info
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -62,10 +63,14 @@ const UserSchema = new mongoose.Schema({
       phone: { type: String },
       email: { type: String },
       relationship: { type: String },
-
-
     },
   ],
+  feedback:{type: String, default:''},
+  car:{
+      make:{type: String},
+      model:{type: String},
+      color:{type: String}
+  }
 });
 
 // Hash password before saving

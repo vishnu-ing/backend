@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const VisaDocumentSchema = new mongoose.Schema({
     owner: {
+        //discussion on whether to store _id or username
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
@@ -9,11 +10,11 @@ const VisaDocumentSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['OPT Receipt', 'EAD Card', 'I-20', 'I-94', 'I-983', 'Other']
     },
     fileUrl: {
         type: String, 
-        required: true 
+        required: true,
+        default: ""
     },
     status: {
         type: String,
