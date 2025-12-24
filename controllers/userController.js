@@ -120,23 +120,41 @@ exports.updatePersonalInfo = async (req, res) => {
 
 
     if (Array.isArray(visaDocuments)) {
+      const user = await User.findById(req.user.userId);
+      
       for (const doc of visaDocuments) {
-        const updated = await VisaDocument.findByIdAndUpdate(
-          doc._id,
-          {
+        //  If this document already exists we can just update
+        if (doc._id) {
+          await VisaDocument.findByIdAndUpdate(
+            doc._id,
+            {
+              type: doc.type,
+              startDate: doc.startDate,
+              endDate: doc.endDate,
+              fileUrl: doc.fileUrl,
+              fileKey: doc.fileKey,
+            },
+            { runValidators: true }
+          );
+        }
+        //if this is a newly created visa, we need to link to user
+        else {
+          const created = await VisaDocument.create({
+            owner: user._id,
             type: doc.type,
             startDate: doc.startDate,
             endDate: doc.endDate,
-            fileUrl: doc.fileUrl
-          },
-          { runValidators: true, new: true }
-        );
+            fileUrl: doc.fileUrl,
+            fileKey: doc.fileKey,
+          });
 
-        if (!updated) {
-          console.warn("Visa doc not updated:", doc._id);
+          user.VisaDocument.push(created._id);
         }
       }
+
+      await user.save();
     }
+
     res.json(updatedUser);
   } catch (err) {
     console.error("Update error:", err.message);

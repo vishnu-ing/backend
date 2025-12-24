@@ -13,7 +13,7 @@ const VisaDocumentSchema = new mongoose.Schema({
     },
     fileUrl: {
         type: String, 
-        required: true,
+        required: false,
         default: ""
     },
     fileKey:{

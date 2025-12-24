@@ -99,9 +99,9 @@ const seedDatabase = async () => {
     });
 
     const frank = await User.create({
-      userName: "visa1",
+      userName: "frankTemp",
       email: "emp3@gmail.com",
-      password: "password",
+      password: "Password1!",
       role: "Employee",
       firstName: "Frank",
       lastName: "Visa",

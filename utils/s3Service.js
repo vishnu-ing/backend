@@ -18,16 +18,16 @@ const s3 = require('../config/aws');
 // };
 const uploadFile = async (buffer, key, contentType) => {
   const params = {
-    Bucket: process.env.AWS_S3_BUCKET,
+    Bucket: process.env.S3_BUCKET_NAME,
     Key: key,
     Body: buffer,
     ContentType: contentType,
   };
 
   await s3.putObject(params).promise();
-  console.log("url: ", `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,)
+  console.log("url: ", `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,)
   return {
-    Location: `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,
+    Location: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,
     Key: key,
   };
 };
@@ -35,7 +35,7 @@ const uploadFile = async (buffer, key, contentType) => {
 
 const getPresignedUrl = (key, expires = 900) => {
   const params = {
-    Bucket: process.env.AWS_S3_BUCKET,
+    Bucket: process.env.S3_BUCKET_NAME,
     Key: key,
     Expires: expires,
   };
@@ -45,7 +45,7 @@ const getPresignedUrl = (key, expires = 900) => {
 
 const deleteFile = (key) => {
   const params = {
-    Bucket: process.env.AWS_S3_BUCKET,
+    Bucket: process.env.S3_BUCKET_NAME,
     Key: key,
   };
 
