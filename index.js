@@ -59,6 +59,7 @@ const facilityReportRoutes = require("./routes/facilityReportRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const housingRoutes = require("./routes/housingRoutes");
 const  hrAuthRoutes  = require("./routes/hrAuthRoutes");
+const visaRoutes = require("./routes/visaRoutes");
 
 // Mount routes
 app.use("/api/auth", authRoutes);
@@ -71,6 +72,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/facility-reports", facilityReportRoutes);
 app.use("/api/facility-reports", commentRoutes);
 app.use("/api/housing", housingRoutes);
+app.use("/api/visa", visaRoutes);
 
 // HR Login
 app.use("/api/hr/auth", hrAuthRoutes)

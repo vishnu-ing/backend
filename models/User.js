@@ -51,18 +51,14 @@ const UserSchema = new mongoose.Schema({
     firstname: { type: String },
     lastname: { type: String },
     phone: { type: String },
-    email: { type: String },
-    relationship: { type: String },
-    middlename: { type: String, default: "" },
+    relationship: { type: String }
   },
   emergencyContacts: [
     {
-      firstName: { type: String, required: true },
-      lastName: { type: String , required: true},
-      middleName: { type: String },
-      phone: { type: String , required: true},
-      email: { type: String , required: true},
-      relationship: { type: String, required: true },
+      firstName: { type: String},
+      lastName: { type: String },
+      phone: { type: String},
+      relationship: { type: String},
     },
   ],
   feedback:{type: String, default:''},

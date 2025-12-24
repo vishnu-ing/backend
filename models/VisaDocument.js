@@ -26,11 +26,9 @@ const VisaDocumentSchema = new mongoose.Schema({
     },
     startDate: { 
         type: String, 
-        required: true 
     },
     endDate: { 
         type: String, 
-        required: true 
     },
     feedback: {
         type: String,
