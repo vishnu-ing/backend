@@ -16,7 +16,7 @@ exports.addCommentToReport = async (req, res) => {
     });
 
     await report.save();
-    res.status(201).json(report.comments[report.comments.length - 1]); // retrives the newly added comment
+    res.status(201).json(report.comments[report.comments.length - 1]); // retrieves the newly added comment
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
