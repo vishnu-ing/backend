@@ -52,7 +52,7 @@ const seedDatabase = async () => {
     const employee1 = await User.create({
       userName: "citizen1",
       email: "emp1@gmail.com",
-      password: "password",
+      password: "PassWord1234@",
       role: "Employee",
       firstName: "David",
       lastName: "Smith",
@@ -73,8 +73,13 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
-      profilePicture: 'cat.jpeg',
+      driverlicense: {
+        fileUrl: "driverlicense.jpeg",
+        hasLicense: "Yes",
+        expirationDate: "1991-01-15",
+        number: "111111111",
+      },
+      profilePicture: "cat.jpeg",
     });
 
     const employee2 = await User.create({
@@ -94,8 +99,13 @@ const seedDatabase = async () => {
         zip: "07302",
       },
       workAuth: { isCitizen: "Yes", kind: "Citizen" },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
-      profilePicture: 'cat.jpeg',
+      driverlicense: {
+        fileUrl: "driverlicense.jpeg",
+        hasLicense: "Yes",
+        expirationDate: "1991-01-15",
+        number: "111111111",
+      },
+      profilePicture: "cat.jpeg",
     });
 
     const frank = await User.create({
@@ -115,8 +125,13 @@ const seedDatabase = async () => {
         zip: "10001",
       },
       workAuth: { isCitizen: "No", kind: "F1(CPT/OPT)" },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
-      profilePicture: 'cat.jpeg',
+      driverlicense: {
+        fileUrl: "driverlicense.jpeg",
+        hasLicense: "Yes",
+        expirationDate: "1991-01-15",
+        number: "111111111",
+      },
+      profilePicture: "cat.jpeg",
     });
 
     console.log(" Employees created with hashed passwords");
@@ -168,10 +183,15 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-      driverlicense: {fileUrl:'driverlicense.jpeg', hasLicense:"Yes", expirationDate: '1991-01-15', number: '111111111'},
-      profilePicture: 'cat.jpeg',
+      driverlicense: {
+        fileUrl: "driverlicense.jpeg",
+        hasLicense: "Yes",
+        expirationDate: "1991-01-15",
+        number: "111111111",
+      },
+      profilePicture: "cat.jpeg",
     });
-    
+
     const hr1visaDoc = await VisaDocument.create({
       owner: hr1._id,
       type: "OPT Receipt",

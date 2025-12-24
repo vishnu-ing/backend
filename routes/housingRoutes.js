@@ -1,7 +1,16 @@
 // housing routes
 const express = require("express");
 const router = express.Router();
+const {
+  getMyHousing,
+  getHousingById,
+} = require("../controllers/housingController");
+const auth = require("../middlewares/auth");
 
-router.get("/me");
+// route to get housing info for logged-in user (protected)
+router.get("/me", auth, getMyHousing);
+
+// route to get housing info by house ID (protected)
+router.get("/:id", auth, getHousingById);
 
 module.exports = router;
