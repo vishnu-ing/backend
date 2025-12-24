@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
   cellPhone: { type: String, required: true },
   workPhone: { type: String, default: "" },
   address: {
-    buildingApt: { type: String },
+    buildingApt: { type: String},
     street: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
@@ -57,12 +57,12 @@ const UserSchema = new mongoose.Schema({
   },
   emergencyContacts: [
     {
-      firstName: { type: String },
-      lastName: { type: String },
+      firstName: { type: String, required: true },
+      lastName: { type: String , required: true},
       middleName: { type: String },
-      phone: { type: String },
-      email: { type: String },
-      relationship: { type: String },
+      phone: { type: String , required: true},
+      email: { type: String , required: true},
+      relationship: { type: String, required: true },
     },
   ],
   feedback:{type: String, default:''},
