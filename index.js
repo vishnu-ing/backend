@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const personalInfoRoutes = require("./routes/userRoutes")
+const personalInfoRoutes = require("./routes/userRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -42,7 +42,6 @@ const connectDB = async () => {
     console.log("🟢 Connected DB:", mongoose.connection.name);
     console.log("Currently running on Port:", PORT);
     // console.log("process.env.mongodburi:", process.env.MONGODB_URI)
-
   } catch (err) {
     console.error("MongoDB connection error:", err.message);
     console.log("Server starting without database connection");
@@ -52,20 +51,25 @@ const connectDB = async () => {
 // Connect to database
 connectDB();
 
-
 // Import routes
 const authRoutes = require("./routes/authRoutes");
 const onboardingRoutes = require("./routes/onboardingRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const facilityReportRoutes = require("./routes/facilityReportRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const housingRoutes = require("./routes/housingRoutes");
 
 // Mount routes
 app.use("/api/auth", authRoutes);
 app.use("/api/onboarding", onboardingRoutes);
 //temp for file uploads will replace with s3 server
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
-app.use("/api/personal-info", personalInfoRoutes)
+app.use("/api/personal-info", personalInfoRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/facility-reports", facilityReportRoutes);
+app.use("/api/facility-reports", commentRoutes);
+app.use("/api/housing", housingRoutes);
 
 // Basic health check route
 app.get("/", (req, res) => {
@@ -138,5 +142,5 @@ const shutdown = async (signal) => {
     process.exit(1);
   }, 10000);
 };
-process.on("SIGINT", shutdown);   // Ctrl + C (terminal)
-process.on("SIGTERM", shutdown);  // kill PID / Docker / PM2
+process.on("SIGINT", shutdown); // Ctrl + C (terminal)
+process.on("SIGTERM", shutdown); // kill PID / Docker / PM2
