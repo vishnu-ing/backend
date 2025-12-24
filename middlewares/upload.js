@@ -22,4 +22,5 @@ const upload = multer({ storage, fileFilter, limits });
 module.exports = {
   uploadSingle: (fieldName = 'file') => upload.single(fieldName),
   uploadArray: (fieldName = 'files', maxCount = 5) => upload.array(fieldName, maxCount),
+  uploadFields: (fieldsConfig) => upload.fields(fieldsConfig),
 };

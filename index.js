@@ -55,10 +55,15 @@ connectDB();
 
 // Import routes
 const authRoutes = require("./routes/authRoutes");
+const onboardingRoutes = require("./routes/onboardingRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 
 // Mount routes
 app.use("/api/auth", authRoutes);
+app.use("/api/onboarding", onboardingRoutes);
+//temp for file uploads will replace with s3 server
+app.use('/uploads', express.static('uploads'));
+
 app.use("/api/personal-info", personalInfoRoutes)
 app.use("/api/upload", uploadRoutes);
 
