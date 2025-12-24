@@ -60,6 +60,7 @@ const seedDatabase = async () => {
       DOB: "1995-10-10",
       cellPhone: "999-888-7771",
       address: {
+        buildingApt: '2R',
         street: "10 Oak Rd",
         city: "Jersey City",
         state: "NJ",
@@ -73,13 +74,19 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-      driverlicense: {
-        fileUrl: "driverlicense.jpeg",
-        hasLicense: "Yes",
-        expirationDate: "1991-01-15",
-        number: "111111111",
-      },
-      profilePicture: "cat.jpeg",
+
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
+
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
+      profilePicture: 'cat.jpeg',
+
     });
 
     const employee2 = await User.create({
@@ -93,25 +100,30 @@ const seedDatabase = async () => {
       DOB: "1997-12-05",
       cellPhone: "999-888-7772",
       address: {
+        buildingApt: '2R',
         street: "11 Pine Ln",
         city: "Jersey City",
         state: "NJ",
         zip: "07302",
       },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
       workAuth: { isCitizen: "Yes", kind: "Citizen" },
-      driverlicense: {
-        fileUrl: "driverlicense.jpeg",
-        hasLicense: "Yes",
-        expirationDate: "1991-01-15",
-        number: "111111111",
-      },
-      profilePicture: "cat.jpeg",
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
+      profilePicture: 'cat.jpeg',
+
     });
 
     const frank = await User.create({
-      userName: "visa1",
+      userName: "frankTemp",
       email: "emp3@gmail.com",
-      password: "password",
+      password: "Password1!",
       role: "Employee",
       firstName: "Frank",
       lastName: "Visa",
@@ -119,19 +131,25 @@ const seedDatabase = async () => {
       DOB: "1993-03-30",
       cellPhone: "999-888-7773",
       address: {
+        buildingApt: '2R',
         street: "12 Maple Ave",
         city: "New York",
         state: "NY",
         zip: "10001",
       },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
       workAuth: { isCitizen: "No", kind: "F1(CPT/OPT)" },
-      driverlicense: {
-        fileUrl: "driverlicense.jpeg",
-        hasLicense: "Yes",
-        expirationDate: "1991-01-15",
-        number: "111111111",
-      },
-      profilePicture: "cat.jpeg",
+
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
+      profilePicture: 'cat.jpeg',
+
     });
 
     console.log(" Employees created with hashed passwords");
@@ -142,8 +160,8 @@ const seedDatabase = async () => {
       type: "OPT Receipt",
       fileUrl: "workAuth.jpeg",
       status: "Pending",
-      startDate: new Date("2024-01-01"),
-      endDate: new Date("2025-01-01"),
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
       feedback: "Awaiting HR review",
     });
 
@@ -170,6 +188,7 @@ const seedDatabase = async () => {
       DOB: "1882-10-10",
       cellPhone: "421-888-7771",
       address: {
+        buildingApt: '2R',
         street: "10 Oak Rd",
         city: "Jersey City",
         state: "NJ",
@@ -183,13 +202,18 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-      driverlicense: {
-        fileUrl: "driverlicense.jpeg",
-        hasLicense: "Yes",
-        expirationDate: "1991-01-15",
-        number: "111111111",
-      },
-      profilePicture: "cat.jpeg",
+
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
+      profilePicture: 'cat.jpeg',
+
     });
 
     const hr1visaDoc = await VisaDocument.create({
@@ -197,13 +221,27 @@ const seedDatabase = async () => {
       type: "OPT Receipt",
       fileUrl: "workAuth.jpeg",
       status: "Pending",
-      startDate: new Date("2024-01-01"),
-      endDate: new Date("2025-01-01"),
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
       feedback: "Awaiting HR review",
     });
 
     // Link visa document to Frank
     hr1.VisaDocument.push(hr1visaDoc._id);
+    await hr1.save();
+
+    const l2visaDoc = await VisaDocument.create({
+      owner: hr1._id,
+      type: "Other",
+      fileUrl: "workAuth.jpeg",
+      status: "Pending",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document to Frank
+    hr1.VisaDocument.push(l2visaDoc._id);
     await hr1.save();
 
     const hr2 = await User.create({
@@ -217,11 +255,20 @@ const seedDatabase = async () => {
       DOB: "1988-08-20",
       cellPhone: "123-456-7891",
       address: {
+        buildingApt: '2R',
         street: "2 Main St",
         city: "Edison",
         state: "NJ",
         zip: "08817",
       },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
       workAuth: { isCitizen: "Yes", kind: "Citizen" },
     });
 
@@ -236,11 +283,20 @@ const seedDatabase = async () => {
       DOB: "1990-01-15",
       cellPhone: "123-456-7892",
       address: {
+        buildingApt: '2R',
         street: "3 Main St",
         city: "Edison",
         state: "NJ",
         zip: "08817",
       },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
       workAuth: { isCitizen: "Yes", kind: "Citizen" },
     });
 
