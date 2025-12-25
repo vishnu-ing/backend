@@ -120,7 +120,6 @@ exports.updatePersonalInfo = async (req, res) => {
 
 
     if (Array.isArray(visaDocuments)) {
-<<<<<<< HEAD
       const user = await User.findById(req.user.userId);
       
       for (const doc of visaDocuments) {
@@ -156,25 +155,7 @@ exports.updatePersonalInfo = async (req, res) => {
       await user.save();
     }
 
-=======
-      for (const doc of visaDocuments) {
-        const updated = await VisaDocument.findByIdAndUpdate(
-          doc._id,
-          {
-            type: doc.type,
-            startDate: doc.startDate,
-            endDate: doc.endDate,
-            fileUrl: doc.fileUrl
-          },
-          { runValidators: true, new: true }
-        );
 
-        if (!updated) {
-          console.warn("Visa doc not updated:", doc._id);
-        }
-      }
-    }
->>>>>>> Finished S3 Integration
     res.json(updatedUser);
   } catch (err) {
     console.error("Update error:", err.message);
