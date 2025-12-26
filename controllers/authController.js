@@ -39,8 +39,8 @@ exports.login = async (req, res) => {
         userName: user.userName,
         role: user.role,
       },
-      process.env.JWT_SECRET || "your-secret-key-change-this",
-      { expiresIn: "10m" }
+      process.env.JWT_SECRET,
+      { expiresIn: "3h" }
     );
 
     // Send response
@@ -53,6 +53,7 @@ exports.login = async (req, res) => {
         email: user.email,
         role: user.role,
         onboardingStatus: user.onboardingStatus,
+        workAuth: user.workAuth,
       },
     });
   } catch (error) {
@@ -108,14 +109,14 @@ exports.register = async (req, res) => {
       onboardingStatus: "Not Started",
       firstName,
       lastName,
-      ssn: `TBD-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+      ssn: `000-00-${Math.floor(1000 + Math.random() * 9000)}`,
       DOB: "1970-01-01",
-      cellPhone: "000-000-0000",
+      cellPhone: "987-654-3210",
       address: {
-        street: "TBD",
-        city: "TBD",
-        state: "TBD",
-        zip: "00000",
+        street: "123 Sample St",
+        city: "East Windsor",
+        state: "NJ",
+        zip: "08512",
       },
     });
 
@@ -142,8 +143,8 @@ exports.register = async (req, res) => {
         userName: newUser.userName,
         role: newUser.role,
       },
-      process.env.JWT_SECRET || "your-secret-key-change-this",
-      { expiresIn: "24h" }
+      process.env.JWT_SECRET,
+      { expiresIn: "3h" }
     );
 
     try {

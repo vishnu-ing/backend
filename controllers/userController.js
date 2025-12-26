@@ -1,19 +1,19 @@
 const User = require('../models/User')
+const VisaDocument = require("../models/VisaDocument");
 
 exports.getPersonalInfo = async (req, res) => {
   try {
-    console.log("req.user.userId: ", req.user.userId)
-    const user = await User.findById(req.user.userId)
+
+    const user = await User.findById(req.user.id)
       .select("-password -role -onboardingStatus")
       .populate({
         path: "VisaDocument",
-        select: "type startDate endDate status feedback fileUrl"
+        select: "type startDate endDate fileUrl"
       });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log("user: ", user)
     res.json({
       name: {
         firstName: user.firstName,
@@ -42,12 +42,12 @@ exports.getPersonalInfo = async (req, res) => {
 
       driverlicense: {
         hasLicense: user.driverlicense?.hasLicense,
-        expirationDate: user.driverlicense?.expirationDate,
         number: user.driverlicense?.number,
         fileUrl: user.driverlicense?.fileUrl
       },
 
       visaDocuments: user.VisaDocument.map(doc => ({
+        _id: doc._id,
         type: doc.type,
         startDate: doc.startDate,
         endDate: doc.endDate,
@@ -72,11 +72,12 @@ exports.updatePersonalInfo = async (req, res) => {
       address,
       contactInfo,
       driverlicense,
-      emergencyContacts
+      emergencyContacts,
+      visaDocuments
     } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
-      req.user.userId,
+      req.user.id,
       {
         firstName: name.firstName,
         lastName: name.lastName,
@@ -106,7 +107,9 @@ exports.updatePersonalInfo = async (req, res) => {
           fileUrl: driverlicense.fileUrl
         },
 
-        emergencyContacts
+        emergencyContacts,
+
+
       },
       { new: true, runValidators: true }
     );
@@ -114,6 +117,42 @@ exports.updatePersonalInfo = async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
+
+
+
+    if (Array.isArray(visaDocuments)) {
+      for (const doc of visaDocuments) {
+        if (doc._id) {
+          await VisaDocument.findByIdAndUpdate(
+            doc._id,
+            {
+              type: doc.type,
+              startDate: doc.startDate,
+              endDate: doc.endDate,
+              fileUrl: doc.fileUrl,
+              fileKey: doc.fileKey,
+            },
+            { runValidators: true }
+          );
+        } else {
+          const created = await VisaDocument.create({
+            owner: updatedUser._id,
+            type: doc.type,
+            startDate: doc.startDate,
+            endDate: doc.endDate,
+            fileUrl: doc.fileUrl,
+            fileKey: doc.fileKey,
+          });
+
+          await User.findByIdAndUpdate(
+            updatedUser._id,
+            { $push: { VisaDocument: created._id } }
+          );
+        }
+      }
+    }
+
+
 
     res.json(updatedUser);
   } catch (err) {

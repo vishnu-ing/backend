@@ -1,6 +1,22 @@
 const s3 = require('../config/aws');
 
-const uploadFile = (buffer, key, contentType) => {
+// const uploadFile = (buffer, key, contentType) => {
+//   const params = {
+//     Bucket: process.env.AWS_S3_BUCKET,
+//     Key: key,
+//     Body: buffer,
+//     ContentType: contentType,
+    
+//   };
+
+//   return new Promise((resolve, reject) => {
+//     s3.upload(params, (err, data) => {
+//       if (err) return reject(err);
+//       resolve(data);
+//     });
+//   });
+// };
+const uploadFile = async (buffer, key, contentType) => {
   const params = {
     Bucket: process.env.S3_BUCKET_NAME,
     Key: key,
@@ -8,13 +24,14 @@ const uploadFile = (buffer, key, contentType) => {
     ContentType: contentType,
   };
 
-  return new Promise((resolve, reject) => {
-    s3.upload(params, (err, data) => {
-      if (err) return reject(err);
-      resolve(data);
-    });
-  });
+  await s3.putObject(params).promise();
+  console.log("url: ", `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,)
+  return {
+    Location: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,
+    Key: key,
+  };
 };
+
 
 const getPresignedUrl = (key, expires = 900) => {
   const params = {

@@ -13,7 +13,9 @@ const UserSchema = new mongoose.Schema({
     enum: ["Not Started", "Pending", "Approved", "Rejected"],
     default: "Not Started",
   },
-
+  isCitizen: {type: String, default:"No"},
+  greencard: {type: String, default:"No"},
+  workAuth: {type: String, default:"F1", enum:["H1-B","L2","F1","H4","Other"]},
   //personal info
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -27,7 +29,7 @@ const UserSchema = new mongoose.Schema({
   cellPhone: { type: String, required: true },
   workPhone: { type: String, default: "" },
   address: {
-    buildingApt: { type: String },
+    buildingApt: { type: String},
     street: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
@@ -50,22 +52,22 @@ const UserSchema = new mongoose.Schema({
     firstname: { type: String },
     lastname: { type: String },
     phone: { type: String },
-    email: { type: String },
-    relationship: { type: String },
-    middlename: { type: String, default: "" },
+    relationship: { type: String }
   },
   emergencyContacts: [
     {
-      firstName: { type: String },
+      firstName: { type: String},
       lastName: { type: String },
-      middleName: { type: String },
-      phone: { type: String },
-      email: { type: String },
-      relationship: { type: String },
-
-
+      phone: { type: String},
+      relationship: { type: String},
     },
   ],
+  feedback:{type: String, default:''},
+  car:{
+      make:{type: String},
+      model:{type: String},
+      color:{type: String}
+  }
 });
 
 // Hash password before saving
