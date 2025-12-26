@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
   },
   isCitizen: {type: String, default:"No"},
   greencard: {type: String, default:"No"},
+  workAuth: {type: String, default:"F1", enum:["H1-B","L2","F1","H4","Other"]},
   //personal info
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },

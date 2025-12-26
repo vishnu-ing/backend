@@ -66,7 +66,7 @@ const seedDatabase = async () => {
         state: "NJ",
         zip: "07302",
       },
-      workAuth: { isCitizen: "Yes", kind: "Citizen" },
+      isCitizen: "Yes",
       reference: {
         firstname: "Ref",
         lastname: "One",
@@ -114,7 +114,8 @@ const seedDatabase = async () => {
         email: 'andrewheo1225@gmail.com',
         relationship: 'friend'
       }],
-      workAuth: { isCitizen: "Yes", kind: "Citizen" },
+      isCitizen: "Yes",
+      greencard: "Yes",
       driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
 
@@ -145,7 +146,7 @@ const seedDatabase = async () => {
         email: 'andrewheo1225@gmail.com',
         relationship: 'friend'
       }],
-      workAuth: { isCitizen: "No", kind: "F1(CPT/OPT)" },
+      workAuth: "F1",
 
       driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
@@ -194,7 +195,7 @@ const seedDatabase = async () => {
         state: "NJ",
         zip: "07302",
       },
-      workAuth: { isCitizen: "Yes", kind: "Citizen" },
+      isCitizen: "Yes",
       reference: {
         firstname: "Ref",
         lastname: "One",
@@ -215,34 +216,6 @@ const seedDatabase = async () => {
       profilePicture: 'cat.jpeg',
 
     });
-
-    const hr1visaDoc = await VisaDocument.create({
-      owner: hr1._id,
-      type: "OPT Receipt",
-      fileUrl: "workAuth.jpeg",
-      status: "Pending",
-      startDate: "1993-03-30",
-      endDate: "1993-03-30",
-      feedback: "Awaiting HR review",
-    });
-
-    // Link visa document to Frank
-    hr1.VisaDocument.push(hr1visaDoc._id);
-    await hr1.save();
-
-    const l2visaDoc = await VisaDocument.create({
-      owner: hr1._id,
-      type: "Other",
-      fileUrl: "workAuth.jpeg",
-      status: "Pending",
-      startDate: "1993-03-30",
-      endDate: "1993-03-30",
-      feedback: "Awaiting HR review",
-    });
-
-    // Link visa document to Frank
-    hr1.VisaDocument.push(l2visaDoc._id);
-    await hr1.save();
 
     const hr2 = await User.create({
       userName: "hr2",
@@ -269,7 +242,7 @@ const seedDatabase = async () => {
         email: 'andrewheo1225@gmail.com',
         relationship: 'friend'
       }],
-      workAuth: { isCitizen: "Yes", kind: "Citizen" },
+      isCitizen: "Yes",
     });
 
     const hr3 = await User.create({
@@ -297,7 +270,7 @@ const seedDatabase = async () => {
         email: 'andrewheo1225@gmail.com',
         relationship: 'friend'
       }],
-      workAuth: { isCitizen: "Yes", kind: "Citizen" },
+      isCitizen: "Yes",
     });
 
     console.log("HR staff created with hashed passwords");
