@@ -24,7 +24,7 @@ exports.getPersonalInfo = async (req, res) => {
         email: user.email,
         ssn: user.ssn,
         dob: user.DOB,
-        gender: user.gender
+        gender: user.gender,
       },
 
       address: {
@@ -32,31 +32,33 @@ exports.getPersonalInfo = async (req, res) => {
         street: user.address.street,
         city: user.address.city,
         state: user.address.state,
-        zip: user.address.zip
+        zip: user.address.zip,
       },
 
       contactInfo: {
         cellPhone: user.cellPhone,
-        workPhone: user.workPhone
+        workPhone: user.workPhone,
       },
 
       driverlicense: {
         hasLicense: user.driverlicense?.hasLicense,
         number: user.driverlicense?.number,
-        fileUrl: user.driverlicense?.fileUrl
+        fileUrl: user.driverlicense?.fileUrl,
       },
 
-      visaDocuments: user.VisaDocument.map(doc => ({
+      car: user.car, //added this for employee profile
+
+      visaDocuments: user.VisaDocument.map((doc) => ({
         _id: doc._id,
         type: doc.type,
         startDate: doc.startDate,
         endDate: doc.endDate,
         status: doc.status,
         feedback: doc.feedback,
-        fileUrl: doc.fileUrl
+        fileUrl: doc.fileUrl,
       })),
 
-      emergencyContacts: user.emergencyContacts
+      emergencyContacts: user.emergencyContacts,
     });
   } catch (err) {
     console.error(err);
@@ -162,3 +164,18 @@ exports.updatePersonalInfo = async (req, res) => {
 };
 
 
+exports.getAllEmployees = async (req, res) => {
+  try {
+    const User = require('../models/User');
+    const employees = await User.find({ role: 'Employee' })
+      .select(
+        'firstName lastName middleName preferredName ssn workAuthorization cellPhone email car'
+      )
+      .sort({ lastName: 1 });
+    res.status(200).json(employees);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Error fetching employees', error: error.message });
+  }
+};
