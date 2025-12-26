@@ -26,7 +26,7 @@ exports.uploadVisaDocument = async (req, res) => {
 
 		const file = req.file;
 		const ext = path.extname(file.originalname);
-		const key = `visas/${userId}/${type.replace(/\s+/g, '-')}/${Date.now()}${ext}`;
+		const key = `visas/${userId}/${type.replace(/\s+/g, '-')}${ext}`;
 
 		const data = await uploadFile(file.buffer, key, file.mimetype);
 
