@@ -11,9 +11,11 @@ const auth = (req, res, next) => {
       process.env.JWT_SECRET || "your-secret-key"
     );
     
-    // Attach user info with id property for downstream use
+    // Attach user info with both `id` and `userId` properties for downstream use
+    const resolvedId = decoded.userId || decoded.id;
     req.user = {
-      id: decoded.userId || decoded.id, // support both userId and id
+      id: resolvedId,
+      userId: resolvedId,
       userName: decoded.userName,
       role: decoded.role,
     };
