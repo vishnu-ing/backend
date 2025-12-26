@@ -162,3 +162,18 @@ exports.updatePersonalInfo = async (req, res) => {
 };
 
 
+exports.getAllEmployees = async (req, res) => {
+  try {
+    const User = require('../models/User');
+    const employees = await User.find({ role: 'Employee' })
+      .select(
+        'firstName lastName middleName preferredName ssn workAuthorization cellPhone email'
+      )
+      .sort({ lastName: 1 });
+    res.status(200).json(employees);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Error fetching employees', error: error.message });
+  }
+};
