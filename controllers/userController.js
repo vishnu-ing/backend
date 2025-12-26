@@ -46,7 +46,7 @@ exports.getPersonalInfo = async (req, res) => {
         fileUrl: user.driverlicense?.fileUrl,
       },
 
-      car: user.car,
+      car: user.car, //added this for employee profile
 
       visaDocuments: user.VisaDocument.map((doc) => ({
         _id: doc._id,
