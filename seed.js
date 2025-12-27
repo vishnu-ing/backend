@@ -48,7 +48,7 @@ const seedDatabase = async () => {
     ]);
     console.log(" Houses created");
 
-    // Create employees ONE BY ONE to trigger password hashing
+    // Create employees ONE BY ONE to trigger Password hashing
     const employee1 = await User.create({
       userName: "citizen1",
       email: "emp1@gmail.com",
@@ -92,7 +92,7 @@ const seedDatabase = async () => {
     const employee2 = await User.create({
       userName: "citizen2",
       email: "emp2@gmail.com",
-      password: "password",
+      password: "Password1%",
       role: "Employee",
       firstName: "Eve",
       lastName: "Jones",
@@ -181,7 +181,7 @@ const seedDatabase = async () => {
     const hr1 = await User.create({
       userName: "hr1",
       email: "hr1@company.com",
-      password: "password",
+      password: "Password1%",
       role: "HR",
       firstName: "David",
       lastName: "Smith",
@@ -220,7 +220,7 @@ const seedDatabase = async () => {
     const hr2 = await User.create({
       userName: "hr2",
       email: "hr2@company.com",
-      password: "password",
+      password: "Password1%",
       role: "HR",
       firstName: "Bob",
       lastName: "HR",
@@ -248,7 +248,7 @@ const seedDatabase = async () => {
     const hr3 = await User.create({
       userName: "hr3",
       email: "hr3@company.com",
-      password: "password",
+      password: "Password1%",
       role: "HR",
       firstName: "Charlie",
       lastName: "HR",
@@ -279,7 +279,7 @@ const seedDatabase = async () => {
     console.log("\n Test Credentials:");
     console.log("Employees: citizen1, citizen2, visa1");
     console.log("HR Staff: hr1, hr2, hr3");
-    console.log("Password for all: password");
+    console.log("Password for all: Password1%");
 
     await mongoose.connection.close();
     process.exit(0);
