@@ -60,13 +60,12 @@ const commentRoutes = require("./routes/commentRoutes");
 const housingRoutes = require("./routes/housingRoutes");
 const  hrAuthRoutes  = require("./routes/hrAuthRoutes");
 const visaRoutes = require("./routes/visaRoutes");
-
+const hrVisaRoutes = require("./routes/hrVisaRoutes")
 // Mount routes
 app.use("/api/auth", authRoutes);
 app.use("/api/onboarding", onboardingRoutes);
 //temp for file uploads will replace with s3 server
 app.use("/uploads", express.static("uploads"));
-
 app.use("/api/personal-info", personalInfoRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/facility-reports", facilityReportRoutes);
@@ -77,6 +76,8 @@ app.use("/api/visa", visaRoutes);
 // HR Login
 app.use("/api/hr/auth", hrAuthRoutes)
 
+//HR Visa Management
+app.use("/api/hr/employees", hrVisaRoutes)
 
 // Basic health check route
 app.get("/", (req, res) => {

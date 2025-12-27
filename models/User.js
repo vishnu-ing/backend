@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-require("./VisaDocument"); 
+require("./VisaDocument");
 
 const UserSchema = new mongoose.Schema({
   //authenticating and role
@@ -13,9 +13,16 @@ const UserSchema = new mongoose.Schema({
     enum: ["Not Started", "Pending", "Approved", "Rejected"],
     default: "Not Started",
   },
-  isCitizen: {type: String, default:"No"},
-  greencard: {type: String, default:"No"},
-  workAuth: {type: String, default:"F1", enum:["H1-B","L2","F1","H4","Other"]},
+  workAuth: {
+    isCitizen: { type: String },
+    kind: {
+      type: String,
+      enum: ['F1', 'H1-B', 'L2', 'H4', 'Other','Citizen'],
+      required: true,
+    }
+  },
+  isCitizen: { type: String, default: "No" },
+  greencard: { type: String, default: "No" },
   //personal info
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -29,7 +36,7 @@ const UserSchema = new mongoose.Schema({
   cellPhone: { type: String, required: true },
   workPhone: { type: String, default: "" },
   address: {
-    buildingApt: { type: String},
+    buildingApt: { type: String },
     street: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
@@ -52,21 +59,25 @@ const UserSchema = new mongoose.Schema({
     firstname: { type: String },
     lastname: { type: String },
     phone: { type: String },
-    relationship: { type: String }
+    email: { type: String },
+    relationship: { type: String },
+    middlename: { type: String, default: "" },
   },
   emergencyContacts: [
     {
-      firstName: { type: String},
-      lastName: { type: String },
-      phone: { type: String},
-      relationship: { type: String},
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+      middleName: { type: String },
+      phone: { type: String, required: true },
+      email: { type: String, required: true },
+      relationship: { type: String, required: true },
     },
   ],
-  feedback:{type: String, default:''},
-  car:{
-      make:{type: String},
-      model:{type: String},
-      color:{type: String}
+  feedback: { type: String, default: '' },
+  car: {
+    make: { type: String },
+    model: { type: String },
+    color: { type: String }
   }
 });
 
