@@ -1,4 +1,6 @@
 const User = require('../models/User')
+const VisaDocument = require("../models/VisaDocument");
+const { sendMail } = require('../utils/emailService');
 
 exports.getEmployeesWithApprovedVisas = async (req, res) => {
     try {
@@ -17,3 +19,90 @@ exports.getEmployeesWithApprovedVisas = async (req, res) => {
         res.status(500).json({ message: "Failed to fetch employees" })
     }
 }
+
+const VISA_ORDER = [
+    "OPT Receipt",
+    "OPT EAD",
+    "I-983",
+    "I-20",
+]
+
+//  Find the next "Pending" Visa 
+function getNextVisa(docs){
+    const map = new Map(docs.map(d => [d.type,d]))
+
+    for(const type of VISA_ORDER){
+        const doc = map.get(type);
+        
+        if(!doc) return { type, status: "Missing" };
+        if(doc.status !== 'Approved'){
+            return doc
+        }
+      
+    }
+      return null
+}
+
+//GET api/hr/employees/in-progress
+exports.getInProgressF1Visas = async (req, res) => {
+  const users = await User.find({
+    "workAuth.kind": "F1",
+    role: "Employee",
+  })
+    .select("firstName lastName email VisaDocument")
+    .populate("VisaDocument");
+
+  const response = [];
+
+  for (const user of users) {
+    const activeVisa = getNextVisa(user.VisaDocument);
+    if (!activeVisa) continue;
+
+    response.push({
+      userId: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      approvedVisas: user.VisaDocument.filter(v => v.status === "Approved"),
+      activeVisa,
+    });
+  }
+
+  res.json(response);
+};
+
+// Patch  /api/hr/employees/:visaId/status}
+exports.updateVisaStatus = async (req, res) => {
+  const { visaId } = req.params;
+  const { status, feedback } = req.body;
+
+  const visa = await VisaDocument.findById(visaId).populate("owner");
+  if (!visa) return res.status(404).json({ error: "Visa not found" });
+
+  visa.status = status;
+
+  if (status === "Rejected") {
+    visa.feedback = feedback || "";
+  }
+
+  await visa.save();
+  res.json({ success: true, visa });
+};
+
+// Post /api/hr/employees/:visaId/notify
+exports.notifyEmployee = async (req, res) => {
+  const visa = await VisaDocument.findById(req.params.visaId).populate("owner");
+
+  if (!visa || visa.status !== "Approved") {
+    return res.status(400).json({ error: "Visa not approved" });
+  }
+
+  await sendMail({
+    to: visa.owner.email,
+    subject: "Next Visa Step Required",
+    text: `Your ${visa.type} was approved. Please submit the next visa document.`,
+  });
+
+  res.json({ success: true });
+};
+

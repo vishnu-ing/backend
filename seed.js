@@ -184,9 +184,88 @@ const seedDatabase = async () => {
     await employee2.save();
 
 
+    const employee3 = await User.create({
+      userName: "citizen3",
+      email: "andrewheo1225@gmail.com",
+      password: "Password1!",
+      role: "Employee",
+      firstName: "Kit",
+      lastName: "Harp",
+      preferredName:'preferred name temp',
+      ssn: "323-00-2222",
+      DOB: "1997-12-05",
+      cellPhone: "999-888-7772",
+      address: {
+        buildingApt: '2R',
+        street: "11 Pine Ln",
+        city: "Jersey City",
+        state: "NJ",
+        zip: "07302",
+      },
+      workAuth: { isCitizen: "No", kind: "F1" },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
+
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
+      profilePicture: 'cat.jpeg',
+
+    });
+
+    const visaDoc3 = await VisaDocument.create({
+      owner: employee3._id,
+      type: "OPT Receipt",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee3.VisaDocument.push(visaDoc3._id);
+    await employee3.save();
+
+    const visaDoc3_1 = await VisaDocument.create({
+      owner: employee3._id,
+      type: "OPT EAD",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee3.VisaDocument.push(visaDoc3_1._id);
+    await employee3.save();
+
+    const visaDoc3_2 = await VisaDocument.create({
+      owner: employee3._id,
+      type: "I-983",
+      fileUrl: "workAuth.jpeg",
+      status: "Pending",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee3.VisaDocument.push(visaDoc3_2._id);
+    await employee3.save();
+
+
+
+
+
     const frank = await User.create({
       userName: "frankTemp",
-      email: "emp3@gmail.com",
+      email: "andrewheo15@gmail.com",
       password: "Password1!",
       role: "Employee",
       firstName: "Frank",
@@ -234,6 +313,22 @@ const seedDatabase = async () => {
     // Link visa document to Frank
     frank.VisaDocument.push(visaDoc._id);
     await frank.save();
+
+
+    const visaDoc_frank  = await VisaDocument.create({
+      owner: frank._id,
+      type: "OPT EAD",
+      fileUrl: "workAuth.jpeg",
+      status: "Pending",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    frank.VisaDocument.push(visaDoc_frank._id);
+    await frank.save();
+
 
     // Assign employees to houses
     houses[0].residents.push(employee1._id, employee2._id);
