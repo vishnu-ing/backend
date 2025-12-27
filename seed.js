@@ -68,6 +68,10 @@ const seedDatabase = async () => {
         zip: "07302",
       },
       isCitizen: "Yes",
+      workAuth:{
+        isCitizen:"Yes",
+        kind:'Citizen'
+      },
       reference: {
         firstname: "Ref",
         lastname: "One",
@@ -93,7 +97,7 @@ const seedDatabase = async () => {
     const employee2 = await User.create({
       userName: "citizen2",
       email: "emp2@gmail.com",
-      password: "password",
+      password: "Password1!",
       role: "Employee",
       firstName: "Eve",
       lastName: "Jones",
@@ -208,7 +212,6 @@ const seedDatabase = async () => {
         email: 'andrewheo1225@gmail.com',
         relationship: 'friend'
       }],
-      workAuth: { isCitizen: "No", kind: "F1" },
 
       driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
@@ -243,7 +246,7 @@ const seedDatabase = async () => {
     const hr1 = await User.create({
       userName: "hr1",
       email: "hr1@company.com",
-      password: "password",
+      password: "Password1!",
       role: "HR",
       firstName: "David",
       lastName: "Smith",
@@ -265,7 +268,10 @@ const seedDatabase = async () => {
         email: "r@r.com",
         relationship: "Friend",
       },
-
+       workAuth:{
+        isCitizen:"Yes",
+        kind:'Citizen'
+      },
       emergencyContacts: [{
         firstName: 'tom',
         lastName: 'cat',
@@ -296,6 +302,10 @@ const seedDatabase = async () => {
         state: "NJ",
         zip: "08817",
       },
+       workAuth:{
+        isCitizen:"Yes",
+        kind:'Citizen'
+      },
       emergencyContacts: [{
         firstName: 'tom',
         lastName: 'cat',
@@ -323,6 +333,10 @@ const seedDatabase = async () => {
         city: "Edison",
         state: "NJ",
         zip: "08817",
+      },
+       workAuth:{
+        isCitizen:"Yes",
+        kind:'Citizen'
       },
       emergencyContacts: [{
         firstName: 'tom',
