@@ -55,6 +55,7 @@ connectDB();
 const authRoutes = require("./routes/authRoutes");
 const onboardingRoutes = require("./routes/onboardingRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const hrhiringRoutes = require("./routes/HRhiringRoutes");
 const facilityReportRoutes = require("./routes/facilityReportRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const housingRoutes = require("./routes/housingRoutes");
@@ -69,6 +70,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/api/personal-info", personalInfoRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/hiring", hrhiringRoutes);
 app.use("/api/facility-reports", facilityReportRoutes);
 app.use("/api/facility-reports", commentRoutes);
 app.use("/api/housing", housingRoutes);
