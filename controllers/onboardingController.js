@@ -25,7 +25,6 @@ exports.submitOnboarding = async (req, res) => {
     try {
         const { userName } = req.body;
         const onboardingdata = {};
-
         //dynamic parsing 
         Object.keys(req.body).forEach(key => {
             if (key === 'userName') return; 
@@ -35,9 +34,13 @@ exports.submitOnboarding = async (req, res) => {
                 onboardingdata[key] = req.body[key];
             }
         });
-
+        delete onboardingdata.VisaDocument;
         const user = await User.findOne({ userName: userName });
-
+        let docType = onboardingdata.workAuth;
+        if (docType === "F1") {
+            docType = "OPT Receipt";
+        }
+        user.set(onboardingdata);
         ['visaStart', 'visaEnd', 'licenseExp', 'DOB'].forEach(dateField => {
             if (onboardingdata[dateField] === "") {
                 onboardingdata[dateField] = null; 
@@ -48,7 +51,7 @@ exports.submitOnboarding = async (req, res) => {
         if (onboardingdata.isCitizen === "No" && onboardingdata.workAuth) {
             const visaPayload = {
                 owner: user._id, 
-                type: onboardingdata.workAuth === "F1" ? "OPT Receipt" : "Other",
+                type: docType,
                 startDate: onboardingdata.visaStart,
                 endDate: onboardingdata.visaEnd,
                 status: 'Pending',
