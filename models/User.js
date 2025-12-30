@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-require("./VisaDocument"); 
+require("./VisaDocument");
 
 const UserSchema = new mongoose.Schema({
   //authenticating and role

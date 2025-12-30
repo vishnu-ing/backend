@@ -49,15 +49,16 @@ const seedDatabase = async () => {
 
     // Create employees ONE BY ONE to trigger Password hashing
     const employee1 = await User.create({
-      userName: 'citizen1',
-      email: 'emp1@gmail.com',
-      password: 'PassWord1234@',
-      role: 'Employee',
-      firstName: 'David',
-      lastName: 'Smith',
-      ssn: '222-00-1111',
-      DOB: '1995-10-10',
-      cellPhone: '999-888-7771',
+      userName: "citizen1",
+      email: "emp1@gmail.com",
+      password: "PassWord1234@",
+      role: "Employee",
+      firstName: "David",
+      lastName: "Smith",
+      ssn: "222-00-1111",
+      preferredName:'preferred name temp',
+      DOB: "1995-10-10",
+      cellPhone: "999-888-7771",
       address: {
         buildingApt: '2R',
         street: '10 Oak Rd',
@@ -95,15 +96,16 @@ const seedDatabase = async () => {
     });
 
     const employee2 = await User.create({
-      userName: 'citizen2',
-      email: 'emp2@gmail.com',
-      password: 'Password1%',
-      role: 'Employee',
-      firstName: 'Eve',
-      lastName: 'Jones',
-      ssn: '222-00-2222',
-      DOB: '1997-12-05',
-      cellPhone: '999-888-7772',
+      userName: "citizen2",
+      email: "emp2@gmail.com",
+      password: "Password1!",
+      role: "Employee",
+      firstName: "Eve",
+      lastName: "Jones",
+      preferredName:'preferred name temp',
+      ssn: "222-00-2222",
+      DOB: "1997-12-05",
+      cellPhone: "999-888-7772",
       address: {
         buildingApt: '2R',
         street: '11 Pine Ln',
@@ -132,16 +134,184 @@ const seedDatabase = async () => {
       profilePicture: 'cat.jpeg',
     });
 
+    const visaDoc2 = await VisaDocument.create({
+      owner: employee2._id,
+      type: "OPT Receipt",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee2.VisaDocument.push(visaDoc2._id);
+    await employee2.save();
+
+    const visaDoc2_1 = await VisaDocument.create({
+      owner: employee2._id,
+      type: "OPT EAD",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee2.VisaDocument.push(visaDoc2_1._id);
+
+    await employee2.save();
+    const visaDoc2_2 = await VisaDocument.create({
+      owner: employee2._id,
+      type: "I-983",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee2.VisaDocument.push(visaDoc2_2._id);
+    await employee2.save();
+
+    const visaDoc2_3 = await VisaDocument.create({
+      owner: employee2._id,
+      type: "I-20",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee2.VisaDocument.push(visaDoc2_3._id);
+    await employee2.save();
+
+
+    const employee3 = await User.create({
+      userName: "citizen3",
+      email: "andrewheo1225@gmail.com",
+      password: "Password1!",
+      role: "Employee",
+      firstName: "Kit",
+      lastName: "Harp",
+      preferredName:'preferred name temp',
+      ssn: "323-00-2222",
+      DOB: "1997-12-05",
+      cellPhone: "999-888-7772",
+      address: {
+        buildingApt: '2R',
+        street: "11 Pine Ln",
+        city: "Jersey City",
+        state: "NJ",
+        zip: "07302",
+      },
+      workAuth: { isCitizen: "No", kind: "F1" },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
+      profilePicture: 'cat.jpeg',
+
+    });
+
+    const visaDoc3 = await VisaDocument.create({
+      owner: employee3._id,
+      type: "OPT Receipt",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee3.VisaDocument.push(visaDoc3._id);
+    await employee3.save();
+
+    const visaDoc3_1 = await VisaDocument.create({
+      owner: employee3._id,
+      type: "OPT EAD",
+      fileUrl: "workAuth.jpeg",
+      status: "Approved",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee3.VisaDocument.push(visaDoc3_1._id);
+    await employee3.save();
+
+    const visaDoc3_2 = await VisaDocument.create({
+      owner: employee3._id,
+      type: "I-983",
+      fileUrl: "workAuth.jpeg",
+      status: "Pending",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    employee3.VisaDocument.push(visaDoc3_2._id);
+    await employee3.save();
+
+
+     const employee4 = await User.create({
+      userName: "citizen4",
+      email: "temp@gmail.com",
+      password: "Password1!",
+      role: "Employee",
+      firstName: "New",
+      lastName: "User",
+      preferredName:'preferred name temp',
+      ssn: "323-00-3214",
+      DOB: "1997-12-05",
+      cellPhone: "999-888-7772",
+      address: {
+        buildingApt: '2R',
+        street: "11 Pine Ln",
+        city: "Jersey City",
+        state: "NJ",
+        zip: "07302",
+      },
+      workAuth: { isCitizen: "No", kind: "F1" },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
+
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
+      profilePicture: 'cat.jpeg',
+
+    });
+    await employee4.save();
+
+
     const frank = await User.create({
-      userName: 'frankTemp',
-      email: 'emp3@gmail.com',
-      password: 'Password1!',
-      role: 'Employee',
-      firstName: 'Frank',
-      lastName: 'Visa',
-      ssn: '222-00-3333',
-      DOB: '1993-03-30',
-      cellPhone: '999-888-7773',
+      userName: "frankTemp",
+      email: "emp3@gmail.com",
+      password: "Password1!",
+      role: "Employee",
+      firstName: "Frank",
+      lastName: "Visa",
+      preferredName:'preferred name temp',
+      ssn: "222-00-3333",
+      DOB: "1993-03-30",
+      cellPhone: "999-888-7773",
       address: {
         buildingApt: '2R',
         street: '12 Maple Ave',
@@ -169,8 +339,7 @@ const seedDatabase = async () => {
       },
       profilePicture: 'cat.jpeg',
     });
-
-    console.log(' Employees created with hashed passwords');
+    console.log(" Employees created with hashed passwords");
 
     // Create visa document for Frank
     const visaDoc = await VisaDocument.create({
@@ -187,6 +356,22 @@ const seedDatabase = async () => {
     frank.VisaDocument.push(visaDoc._id);
     await frank.save();
 
+
+    const visaDoc_frank  = await VisaDocument.create({
+      owner: frank._id,
+      type: "OPT EAD",
+      fileUrl: "workAuth.jpeg",
+      status: "Pending",
+      startDate: "1993-03-30",
+      endDate: "1993-03-30",
+      feedback: "Awaiting HR review",
+    });
+
+    // Link visa document
+    frank.VisaDocument.push(visaDoc_frank._id);
+    await frank.save();
+
+
     // Assign employees to houses
     houses[0].residents.push(employee1._id, employee2._id);
     houses[1].residents.push(frank._id);
@@ -196,15 +381,15 @@ const seedDatabase = async () => {
 
     // Create HR staff ONE BY ONE to trigger password hashing
     const hr1 = await User.create({
-      userName: 'hr1',
-      email: 'hr1@company.com',
-      password: 'Password1%',
-      role: 'HR',
-      firstName: 'David',
-      lastName: 'Smith',
-      ssn: '222-00-1223',
-      DOB: '1882-10-10',
-      cellPhone: '421-888-7771',
+      userName: "hr1",
+      email: "hr1@company.com",
+      password: "Password1!",
+      role: "HR",
+      firstName: "David",
+      lastName: "Smith",
+      ssn: "222-00-1223",
+      DOB: "1882-10-10",
+      cellPhone: "421-888-7771",
       address: {
         buildingApt: '2R',
         street: '10 Oak Rd',
@@ -220,23 +405,15 @@ const seedDatabase = async () => {
         email: 'r@r.com',
         relationship: 'Friend',
       },
-
-      emergencyContacts: [
-        {
-          firstName: 'tom',
-          lastName: 'cat',
-          middleName: 'hi',
-          phone: '201-943-2923',
-          email: 'andrewheo1225@gmail.com',
-          relationship: 'friend',
-        },
-      ],
-      driverlicense: {
-        fileUrl: 'driverlicense.jpeg',
-        hasLicense: 'Yes',
-        expirationDate: '1991-01-15',
-        number: '111111111',
-      },
+      emergencyContacts: [{
+        firstName: 'tom',
+        lastName: 'cat',
+        middleName: 'hi',
+        phone: '201-943-2923',
+        email: 'andrewheo1225@gmail.com',
+        relationship: 'friend'
+      }],
+      driverlicense: { fileUrl: 'driverlicense.jpeg', hasLicense: "Yes", expirationDate: '1991-01-15', number: '111111111' },
       profilePicture: 'cat.jpeg',
     });
 
