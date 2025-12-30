@@ -10,7 +10,6 @@ const auth = (req, res, next) => {
       token,
       process.env.JWT_SECRET || "your-secret-key"
     );
-    
     // Attach user info with both `id` and `userId` properties for downstream use
     const resolvedId = decoded.userId || decoded.id;
     req.user = {
@@ -19,8 +18,6 @@ const auth = (req, res, next) => {
       userName: decoded.userName,
       role: decoded.role,
     };
-    
-    console.log("req.user: ", req.user)
     next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid or expired token" });
