@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
         role: user.role,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "3h" }
+      { expiresIn: "1h" }
     );
 
     // Send response
@@ -144,7 +144,7 @@ exports.register = async (req, res) => {
         role: newUser.role,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "3h" }
+      { expiresIn: "1h" }
     );
 
     try {
