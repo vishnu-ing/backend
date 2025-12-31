@@ -209,7 +209,7 @@ const seedDatabase = async () => {
         state: "NJ",
         zip: "07302",
       },
-      workAuth: { isCitizen: "No", kind: "F1" },
+      workAuth: "F1",
       emergencyContacts: [{
         firstName: 'tom',
         lastName: 'cat',
@@ -284,7 +284,7 @@ const seedDatabase = async () => {
         state: "NJ",
         zip: "07302",
       },
-      workAuth: { isCitizen: "No", kind: "F1" },
+      workAuth: "F1",
       emergencyContacts: [{
         firstName: 'tom',
         lastName: 'cat',
